@@ -1,0 +1,55 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class BalancedBracket {
+
+	public static void main(String[] args) {
+
+		Scanner in = new Scanner(System.in);
+		System.out.println("Please enter Number of expressions");
+		int noExp = in.nextInt();
+		// Creating boolean Array to store results of different expressions
+		boolean[] resultArray = new boolean[noExp];
+		String newExp;
+		// Iterating number of input Expressions and strong results in boolean
+		// array
+		for (int i = 0; i < noExp; i++) {
+			newExp = in.next();
+			resultArray[i] = (isBalanced(newExp));
+		}
+		// For Iterating result Array Boolean Values
+		for (boolean b : resultArray) {
+			System.out.println(b);
+		}
+	}
+
+	public static boolean isBalanced(String str) {
+		// Must be even
+		if (str.length() == 1)
+			return false;
+		else {
+			char[] brackets = str.toCharArray();
+			Stack<Character> s = new Stack<Character>();
+
+			for (char bracket : brackets)
+				switch (bracket) {
+				case '{':
+					s.push('}');
+					break;
+				case '(':
+					s.push(')');
+					break;
+				case '[':
+					s.push(']');
+					break;
+				default:
+					if (s.empty() || bracket != s.peek())
+						return false;
+					s.pop();
+				}
+			return s.empty();
+		}
+
+	}
+
+}
